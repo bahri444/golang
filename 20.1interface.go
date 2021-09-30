@@ -1,0 +1,38 @@
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type hitung2d interface {
+	luas() float64
+	keliling() float64
+}
+type hitung3d interface {
+	volume() float64
+}
+type hitung interface {
+	hitung2d
+	hitung3d
+}
+type kubus struct {
+	sisi float64
+}
+
+func (k *kubus) volume() float64 {
+	return math.Pow(k.sisi, 3)
+}
+func (k *kubus) luas() float64 {
+	return math.Pow(k.sisi, 2) * 6
+}
+func (k *kubus) keliling() float64 {
+	return k.sisi * 12
+}
+func main() {
+	var bangun_ruang hitung
+	bangun_ruang = &kubus{4}
+	fmt.Println("luas :", bangun_ruang.luas())
+	fmt.Println("keliling :", bangun_ruang.keliling())
+	fmt.Println("volume :", bangun_ruang.volume())
+}
