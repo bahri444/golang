@@ -1,4 +1,4 @@
-module 42.flagargumen.go
+module golang
 
 go 1.17
 

@@ -1,48 +1,66 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
+	"database/sql"
 	"fmt"
-	"net/http"
-	"net/url"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
-type pengguna struct {
-	Id   string
-	Name string
-	Umur int
+type member struct {
+	id       int
+	nim      string
+	nama     string
+	foto     string
+	alamat   string
+	jen_kel  string
+	telepon  string
+	email    string
+	akun_git string
+	prodi    string
+	kelas    string
+	angkatan string
 }
 
-var link = "http://localhost:8080"
-
-func getelementbyId(Id string) (pengguna, error) {
-	var err error
-	var client = &http.Client{}
-	var data pengguna
-	var param = url.Values{}
-	param.Set("id", Id)
-	var payload = bytes.NewBufferString(param.Encode())
-	request, err := http.NewRequest("POST", link+"/user", payload)
+func Con() (*sql.DB, error) {
+	db, err := sql.Open("mysql", "root:bahrysemet@tcp(127.0.0.1:3306)/ukm")
 	if err != nil {
-		return data, err
+		return nil, err
 	}
-	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	response, err := client.Do(request)
-	if err != nil {
-		return data, err
-	}
-	defer response.Body.Close()
-	err = json.NewDecoder(response.Body).Decode(&data)
-	if err != nil {
-		return data, err
-	}
-	return data, nil
+	return db, err
 }
-func main() {
-	var getuser, err = getelementbyId("G005")
+func querySql() {
+	db, err := Con()
 	if err != nil {
 		fmt.Println(err.Error())
+		return
 	}
-	fmt.Printf("Id :%s\tNama :%s\tUmur :%d\n", getuser.Id, getuser.Name, getuser.Umur)
+	defer db.Close()
+	_, err = db.Exec("insert into member values(?,?,?,?,?,?,?,?,?,?,?,?)", "11", "SI17200028", "septemi yuniati", "temi.jpg", "Perempuan", "waker puyung", "087757012337", "setemiYu@gmail.com", "yuniatiSept", "Sistem Informasi", "SI B", "pertama")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println("data berhasil di insert")
+	// defer rows.Close()
+	// var res []member
+	// for rows.Next() {
+	// 	var each = member{}
+	// 	err := rows.Scan(&each.id, &each.nim, &each.nama, &each.foto, &each.alamat, &each.kelas, &each.telepon, &each.email, &each.akun_git, &each.prodi, &each.kelas, &each.angkatan)
+	// 	if err != nil {
+	// 		fmt.Println(err.Error())
+	// 		return
+	// 	}
+	// 	res = append(res, each)
+	// 	if rows.Err(); err != nil {
+	// 		fmt.Println(err.Error())
+	// 		return
+	// 	}
+	// 	for _, each := range res {
+	// 		fmt.Println(each.id, each.nim, each.nama, each.foto, each.alamat, each.kelas, each.telepon, each.email, each.akun_git, each.prodi, each.kelas, each.angkatan)
+	// 	}
+	// }
+}
+func main() {
+	querySql()
 }
