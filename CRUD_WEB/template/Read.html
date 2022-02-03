@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Member</title>
+</head>
+<body>
+    <H2>Data Member</H2>
+    <p>{{.Pesan}}</p>
+    <a href="/?aksi=Insert"><button>Tambah Data</button></a>
+    <hr>
+    <table border="1" width=100%>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nim</th>
+                <th>Nama</th>
+                <th>Foto</th>
+                <th>Jenis Kelamin</th>
+                <th>Alamat</th>
+                <th>Telepon</th>
+                <th>Email</th>
+                <th>Akun Github</th>
+                <th>Prodi</th>
+                <th>Kelas</th>
+                <th>Angkatan</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range $key, $value := .Data}}
+            <tr>
+                <td>{{$value.Id}}</td>
+                <td>{{$value.Nim}}</td>
+                <td>{{$value.Nama}}</td>
+                <td>{{$value.Foto}}</td>
+                <td>{{$value.Jen_kel}}</td>
+                <td>{{$value.Alamat}}</td>
+                <td>{{$value.Telepon}}</td>
+                <td>{{$value.Email}}</td>
+                <td>{{$value.Akun_git}}</td>
+                <td>{{$value.Prodi}}</td>
+                <td>{{$value.Kelas}}</td>
+                <td>{{$value.Angkatan}}</td>
+                <td>
+                    <a href="/aksi=Update&id={{$value.Id}}">Edit | </a>
+                    <a href="/aksi=Delete&id={{$value.Id}}">Hapus</a>
+                </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</body>
+</html>

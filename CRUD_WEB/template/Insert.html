@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Tambah Data</title>
+</head>
+<body>
+    <div class="container">
+        <h2 align="center">Tambah Data</h2>
+        <hr>
+        <form action="/Insert" method="post" enctype="multipart/form-data">
+            <input type="number" name="id" placeholder="masukkan id">
+            <br>
+            <input type="text" name="nim" placeholder="masukkan nim">
+            <br>
+            <input type="text" name="nama" placeholder="masukkan nama">
+            <br>
+            <input type="file" name="foto" multiple>
+            <br>
+            <label for="jen_kel">Jenis Kelamin
+                <br>
+                <label for=""><input type="radio" value="L" name="jen_kel">laki-laki</label>
+                <br>
+                <label for=""><input type="radio" value="P" name="jen_kel">perempuan</label>
+            </label>
+            <br>
+            <input type="text" name="alamat" placeholder="masukkan alamat">
+            <br>
+            <input type="text" name="telepon" placeholder="masukkan nomor telepon">
+            <br>
+            <input type="email" name="email" placeholder="example@gmail.com">
+            <br>
+            <input type="text" name="akun_git" placeholder="masukkan nama akun github">
+            <br>
+            <select name="prodi" id="prodi">
+                <option value="">---Pilih Program Studi---</option>
+                <option value="Teknik Informatika">Teknik Informatika</option>
+                <option value="Sistem Informasi">Sistem Infromasi</option>
+            </select>
+            <br>
+            <input type="text" name="kelas" placeholder="masukkan kelas">
+            <br>
+            <input type="text" name="angkatan" placeholder="masukkan angkatan">
+            <br>
+            <a href="/">Batal</a>
+            <button type="submit" name="Insert">Simpan</button>
+        </form>
+    </div>
+</body>
+</html>
