@@ -23,7 +23,7 @@ type member struct {
 }
 
 func connect() (*sql.DB, error) {
-	db, err := sql.Open("mysql", "root:bahrysemet@tcp(127.0.0.1:3306)/ukm")
+	db, err := sql.Open("mysql", "root:bahri@tcp(127.0.0.1:3306)/ukm")
 	if err != nil {
 		return nil, err
 	}
