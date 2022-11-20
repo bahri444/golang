@@ -7,21 +7,25 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type anggota_utc struct {
-	no_agt    int
-	nim       string
-	nama      string
-	foto      string
-	jenis_kel string
-	alamat    string
-	email     string
-	prodi     string
-	kelas     string
-	angkatan  string
+type member struct {
+	member_id  int
+	nim        string
+	nama       string
+	tgl_lahir  string
+	fas_foto   string
+	kelamin    string
+	alamat     string
+	tlp        string
+	email      string
+	github     string
+	prodi      string
+	angkatan   int
+	status_agt string
 }
 
 func con() (*sql.DB, error) {
-	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/mhs")
+	// db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/")
+	db, err := sql.Open("mysql", "root:bahri@tcp(127.0.0.1:3306)/sis_techcode")
 	if err != nil {
 		return nil, err
 	}
@@ -34,14 +38,15 @@ func sqlprepare() {
 		return
 	}
 	defer db.Close()
-	var res = anggota_utc{}
-	var no_agt = 1
-	err = db.QueryRow("select nim,nama,foto,jenis_kel,alamat,email,prodi,kelas,angkatan from anggota_utc where no_agt=? ", no_agt).Scan(&res.nim, &res.nama, &res.foto, &res.jenis_kel, &res.alamat, &res.email, &res.prodi, &res.kelas, &res.angkatan)
+	var res = member{}
+	var member_id = 1
+	err = db.QueryRow("select nim,	nama,	tgl_lahir,	fas_foto,	kelamin,	alamat,	tlp,	email,	github,	prodi,	angkatan,	status_agt from member where member_id=? ", member_id).Scan(&res.nim, &res.nama, &res.tgl_lahir, &res.fas_foto, &res.kelamin, &res.alamat, &res.tlp, &res.email, &res.github, &res.prodi, &res.angkatan, &res.status_agt)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
-	fmt.Printf("%s%s%s%s%s%s%s%s%s", res.nim, res.nama, res.foto, res.jenis_kel, res.alamat, res.email, res.prodi, res.kelas, res.angkatan)
+	fmt.Printf("%s%s%s%s%s%s%s%s%s%s%d%s\n", res.nim, res.nama, res.tgl_lahir, res.fas_foto, res.kelamin, res.alamat, res.tlp, res.email, res.github, res.prodi, res.angkatan, res.status_agt)
+
 }
 func main() {
 	sqlprepare()
